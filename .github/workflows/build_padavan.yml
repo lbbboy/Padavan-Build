@@ -10,7 +10,6 @@ on:
         required: true
         type: choice
         options:
-        default: NEWIFI3
           - 360-T6M
           - 360-T6M-PB
           - B70
@@ -52,6 +51,7 @@ on:
           - NETGEAR-R7450
           - NEWIFI
           - NEWIFI3
+      default: NEWIFI3
           - QM-B1
           - R2100
           - RM2100
