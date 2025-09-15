@@ -9,6 +9,7 @@ on:
         description: "Select router device"
         required: true
         type: choice
+        default: NEWIFI3
         options:
           - 360-T6M
           - 360-T6M-PB
