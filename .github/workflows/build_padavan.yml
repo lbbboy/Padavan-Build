@@ -261,3 +261,17 @@ jobs:
         with:
           retain_days: 0
           keep_minimum_runs: 1
+
+      - name: Telegram notification
+        if: always()
+        continue-on-error: true
+        run: |
+          if [ "${{ job.status }}" = "success" ]; then
+            curl -s -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
+                 --data "text=🎉 OpenWrt ${{ inputs.target }} ${{ env.BUILD_DATE }} 编译成功 😋 🔗 https://github.com/${{ github.repository }}/releases/latest/" \
+                 "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage"
+          else
+            curl -s -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
+                 --data "text=❌ OpenWrt ${{ inputs.target }} ${{ env.BUILD_DATE }} 编译失败 😂 🔗 https://github.com/${{ github.repository }}/releases/latest/" \
+                 "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage"
+          fi
